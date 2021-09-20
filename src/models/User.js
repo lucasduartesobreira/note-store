@@ -1,11 +1,4 @@
-let user_bd = new Map();
-
-user_bd.set(1, {
-  id: 1,
-  notes: new Map(),
-});
-
-export const insertNote = (user_id, body, title) => {
+export const insertNote = (user_bd, user_id, body, title) => {
   if (user_bd.has(user_id)) {
     const user = user_bd.get(user_id);
     user.notes.set(user.notes.size, {
@@ -19,7 +12,7 @@ export const insertNote = (user_id, body, title) => {
   return null;
 };
 
-export const updateNoteTitle = (user_id, note_id, title) => {
+export const updateNoteTitle = (user_bd, user_id, note_id, title) => {
   if (user_bd.has(user_id)) {
     const user = user_bd.get(user_id);
     user.notes.get(note_id).title = title;
@@ -28,7 +21,7 @@ export const updateNoteTitle = (user_id, note_id, title) => {
   return null;
 };
 
-export const updateNoteBody = (user_id, note_id, body) => {
+export const updateNoteBody = (user_bd, user_id, note_id, body) => {
   if (user_bd.has(user_id)) {
     const user = user_bd.get(user_id);
     user.notes.get(note_id).body = body;
@@ -37,14 +30,14 @@ export const updateNoteBody = (user_id, note_id, body) => {
   return null;
 };
 
-export const getNote = (user_id, note_id) => {
+export const getNote = (user_bd, user_id, note_id) => {
   if (user_bd.has(user_id)) {
     return user_bd.get(user_id).notes.get(note_id);
   }
   return null;
 };
 
-export const getUserNotes = (user_id) => {
+export const getUserNotes = (user_bd, user_id) => {
   if (user_bd.has(user_id)) {
     return user_bd.get(user_id).notes;
   }
