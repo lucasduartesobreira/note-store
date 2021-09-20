@@ -6,38 +6,38 @@ import {
   insertNote as pushNote,
 } from '../models/User.js';
 
-export const insertNote = (data) => {
+export const insertNote = (user_bd) => (data) => {
   const { user_id, body, title } = data;
 
   return user_id && body && title
-    ? pushNote(Number(user_id), body, title)
+    ? pushNote(user_bd, Number(user_id), body, title)
     : null;
 };
 
-export const updateNoteTitle = (data) => {
+export const updateNoteTitle = (user_bd) => (data) => {
   const { user_id, note_id, title } = data;
 
   return user_id && note_id && title
-    ? updNoteTitle(Number(user_id), note_id, title)
+    ? updNoteTitle(user_bd, Number(user_id), note_id, title)
     : null;
 };
 
-export const updateNoteBody = (data) => {
+export const updateNoteBody = (user_bd) => (data) => {
   const { user_id, note_id, body } = data;
 
   return user_id && note_id && body
-    ? updNoteBody(Number(user_id), note_id, body)
+    ? updNoteBody(user_bd, Number(user_id), note_id, body)
     : null;
 };
 
-export const getNote = (data) => {
+export const getNote = (user_bd) => (data) => {
   const { user_id, note_id } = data;
 
-  return user_id && note_id ? gNote(Number(user_id), note_id) : null;
+  return user_id && note_id ? gNote(user_bd, Number(user_id), note_id) : null;
 };
 
-export const getNotes = (data) => {
+export const getNotes = (user_bd) => (data) => {
   const { user_id } = data;
 
-  return user_id ? gNotes(Number(user_id)) : null;
+  return user_id ? gNotes(user_bd, Number(user_id)) : null;
 };
