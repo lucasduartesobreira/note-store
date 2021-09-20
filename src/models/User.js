@@ -32,7 +32,8 @@ export const updateNoteBody = (user_bd, user_id, note_id, body) => {
 
 export const getNote = (user_bd, user_id, note_id) => {
   if (user_bd.has(user_id)) {
-    return user_bd.get(user_id).notes.get(note_id);
+    const notes = user_bd.get(user_id).notes;
+    return notes.has(note_id) ? notes.get(note_id) : null;
   }
   return null;
 };
