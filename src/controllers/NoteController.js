@@ -3,8 +3,8 @@ import {
   updateNoteBody as updNoteBody,
   getNote as gNote,
   getUserNotes as gNotes,
-  pushNote,
-} from '../models/User';
+  insertNote as pushNote,
+} from '../models/User.js';
 
 export const insertNote = (data) => {
   const { user_id, body, title } = data;
