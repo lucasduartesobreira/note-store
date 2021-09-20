@@ -37,3 +37,16 @@ export const updateNoteBody = (user_id, note_id, body) => {
   return null;
 };
 
+export const getNote = (user_id, note_id) => {
+  if (user_bd.has(user_id)) {
+    return user_bd.get(user_id).notes.get(note_id);
+  }
+  return null;
+};
+
+export const getUserNotes = (user_id) => {
+  if (user_bd.has(user_id)) {
+    return user_bd.get(user_id).notes;
+  }
+  return null;
+};
