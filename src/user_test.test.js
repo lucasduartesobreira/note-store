@@ -79,4 +79,68 @@ describe('User', () => {
       expect(getUserNotes(database, 1)).toBeNull();
     });
   });
+
+  describe('Update', () => {
+    const base_note = {
+      id: 0,
+      body: 'Body test',
+      title: 'Title test',
+    };
+    const setup = () => {
+      let database = new Map();
+      const b_note = {
+        ...base_note,
+      };
+      database.set(0, { id: 0, notes: new Map() });
+      database.get(0).notes.set(0, b_note);
+
+      return database;
+    };
+
+    test('update a note title', () => {
+      let database = setup();
+
+      const expected_note = {
+        ...base_note,
+        title: 'Changed title',
+      };
+
+      expect(updateNoteTitle(database, 0, 0, 'Changed title')).toStrictEqual(
+        expected_note
+      );
+
+      expect(getNote(database, 0, 0)).toStrictEqual(expected_note);
+    });
+
+    test('update a note body', () => {
+      let database = setup();
+
+      const expected_note = {
+        ...base_note,
+        body: 'Changed body',
+      };
+      expect(updateNoteBody(database, 0, 0, 'Changed body')).toStrictEqual(
+        expected_note
+      );
+
+      expect(getNote(database, 0, 0)).toStrictEqual(expected_note);
+    });
+
+    test('try update a unexistent note', () => {
+      let database = setup();
+      expect(updateNoteBody(database, 0, 1, 'Changed body')).toBeNull();
+      expect(updateNoteTitle(database, 0, 1, 'Changed title')).toBeNull();
+
+      expect(database).toStrictEqual(setup());
+    });
+
+    test('try update a note on a unexistent user', () => {
+      let database = setup();
+
+      expect(updateNoteBody(database, 1, 0, 'Changed body')).toBeNull();
+      expect(updateNoteTitle(database, 1, 0, 'Changed title')).toBeNull();
+
+      expect(database).toStrictEqual(setup());
+    });
+  });
 });
