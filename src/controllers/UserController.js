@@ -7,5 +7,5 @@ export const createUser = (user_bd) => () => {
 export const deleteUser = (user_bd) => (data) => {
   const { user_id } = data;
 
-  return user_id ? dUser(user_bd, user_id) : null;
+  return user_id ? dUser(user_bd, Number(user_id)) : null;
 };
