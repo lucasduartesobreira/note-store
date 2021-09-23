@@ -14,8 +14,8 @@ import {
 
 export default function (database) {
   const root = {
-    note: getNote(database),
-    notes: getNotes(database),
+    getNote: getNote(database),
+    getNotes: getNotes(database),
     updateNoteBody: updateNoteBody(database),
     updateNoteTitle: updateNoteTitle(database),
     insertNote: insertNote(database),

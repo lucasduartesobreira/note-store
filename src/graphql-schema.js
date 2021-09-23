@@ -2,8 +2,8 @@ import { buildSchema } from 'graphql';
 
 export default buildSchema(`
     type Query {
-        note(user_id: String!, note_id: Int!): Note
-        notes(user_id: String!): [ Note ]
+        getNote(user_id: String!, note_id: Int!): Note
+        getNotes(user_id: String!): [ Note ]
     }
 
     type Mutation {
