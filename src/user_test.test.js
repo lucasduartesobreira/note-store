@@ -4,6 +4,8 @@ import {
   updateNoteTitle,
   getNote,
   getUserNotes,
+  deleteNote,
+  deleteAllNotes,
 } from './models/User.js';
 
 describe('User', () => {
@@ -141,6 +143,47 @@ describe('User', () => {
       expect(updateNoteTitle(database, 1, 0, 'Changed title')).toBeNull();
 
       expect(database).toStrictEqual(setup());
+    });
+  });
+
+  describe('Delete', () => {
+    const setup = () => {
+      let database = new Map();
+      const base_note = {
+        id: 0,
+        body: 'Body test',
+        title: 'Title test',
+      };
+      database.set(0, { id: 0, notes: new Map() });
+      database.get(0).notes.set(0, base_note);
+
+      return database;
+    };
+    test('delete a valid note', () => {
+      let database = setup();
+      expect(deleteNote(database, 0, 0)).toStrictEqual('Sucessfully deleted');
+      expect(getNote(database, 0, 0)).toBeNull();
+    });
+
+    test('delete all notes', () => {
+      let database = setup();
+      expect(deleteAllNotes(database, 0)).toBe('Deleted all messages');
+      expect(getNote(database, 0, 0)).toBeNull();
+    });
+
+    test('delete invalid note', () => {
+      let database = setup();
+      expect(deleteNote(database, 0, 1)).toBeNull();
+      expect(getNote(database, 0, 1)).toBeNull();
+    });
+    test('delete invalid user', () => {
+      let database = setup();
+      expect(deleteNote(database, 1, 0)).toBeNull();
+    });
+
+    test('delete all notes from a invalid user', () => {
+        let database = setup();
+      expect(deleteAllNotes(database, 1, 0)).toBeNull();
     });
   });
 });
