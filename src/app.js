@@ -1,7 +1,7 @@
 import express from 'express';
 import express_graphql from 'express-graphql';
 
-import schema from './graphql-schema.js';
+import { note_schema, user_schema } from './graphql-schema.js';
 import {
   insertNote,
   updateNoteBody,
@@ -23,15 +23,15 @@ export default function (database) {
     deleteAllNotes: deleteAllNotes(database),
   };
 
-  const graphql_handler = express_graphql.graphqlHTTP({
-    schema,
+  const note_handler = express_graphql.graphqlHTTP({
+    schema: note_schema,
     rootValue: root,
     graphiql: true,
   });
 
   const app = express();
 
-  app.use('/graphql', graphql_handler);
+  app.use('/note', note_handler);
 
   return app;
 }
