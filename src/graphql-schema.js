@@ -1,6 +1,6 @@
 import { buildSchema } from 'graphql';
 
-export default buildSchema(`
+export const note_schema = buildSchema(`
     type Query {
         getNote(user_id: String!, note_id: Int!): Note
         getNotes(user_id: String!): [ Note ]
@@ -14,14 +14,23 @@ export default buildSchema(`
         deleteAllNotes(user_id: String!): String
     }
 
-    type User {
-        id: String
-        notes: [Note]
-    }
-
     type Note {
         id: Int
         title: String
         body: String
+    }
+`);
+
+export const user_schema = buildSchema(`
+    type Query {
+        _dummy: String
+    }
+    type Mutation {
+        createUser: User
+        deleteUser(user_id: String!): String
+    }
+
+    type User {
+        id: Int
     }
 `);
