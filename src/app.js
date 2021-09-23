@@ -12,6 +12,8 @@ import {
   deleteAllNotes,
 } from './controllers/NoteController.js';
 
+import { deleteUser, createUser } from './controllers/UserController.js';
+
 export default function (database) {
   const root = {
     getNote: getNote(database),
@@ -29,9 +31,19 @@ export default function (database) {
     graphiql: true,
   });
 
+  const user_handler = express_graphql.graphqlHTTP({
+    schema: user_schema,
+    rootValue: {
+      createUser: createUser(database),
+      deleteUser: deleteUser(database),
+    },
+    graphiql: true,
+  });
+
   const app = express();
 
   app.use('/note', note_handler);
+  app.use('/user', user_handler);
 
   return app;
 }
