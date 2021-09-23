@@ -10,6 +10,8 @@ export default buildSchema(`
         updateNoteTitle(user_id: String!, note_id: Int!, title: String): Note
         updateNoteBody(user_id: String!, note_id: Int!, body: String): Note
         insertNote(user_id: String!, body: String!, title: String!): Note
+        deleteNote(user_id: String!, note_id:Int!): String
+        deleteAllNotes(user_id: String!): String
     }
 
     type User {

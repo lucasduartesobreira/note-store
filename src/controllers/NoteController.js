@@ -4,6 +4,8 @@ import {
   getNote as gNote,
   getUserNotes as gNotes,
   insertNote as pushNote,
+  deleteNote as dNote,
+  deleteAllNotes as dAllNotes,
 } from '../models/User.js';
 
 export const insertNote = (user_bd) => (data) => {
@@ -40,4 +42,16 @@ export const getNotes = (user_bd) => (data) => {
   const { user_id } = data;
 
   return user_id ? gNotes(user_bd, Number(user_id)) : null;
+};
+
+export const deleteNote = (user_bd) => (data) => {
+  const { user_id, note_id } = data;
+
+  return user_id && note_id ? dNote(user_bd, user_id, note_id) : null;
+};
+
+export const deleteAllNotes = (user_bd) => (data) => {
+  const { user_id } = data;
+
+  return user_id ? dAllNotes(user_bd, user_id) : null;
 };

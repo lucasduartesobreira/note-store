@@ -48,3 +48,21 @@ export const getUserNotes = (user_bd, user_id) => {
   }
   return null;
 };
+
+export const deleteNote = (user_bd, user_id, note_id) => {
+  if (user_bd.has(user_id)) {
+    return user_bd.get(user_id).notes.delete(note_id)
+      ? 'Sucessfully deleted'
+      : null;
+  }
+  return null;
+};
+
+export const deleteAllNotes = (user_bd, user_id) => {
+  if (user_bd.has(user_id)) {
+    let notes = user_bd.get(user_id).notes;
+    notes.clear();
+    return `Deleted all messages`;
+  }
+  return null;
+};

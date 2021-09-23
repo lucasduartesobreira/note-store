@@ -8,6 +8,8 @@ import {
   updateNoteTitle,
   getNote,
   getNotes,
+  deleteNote,
+  deleteAllNotes,
 } from './controllers/NoteController.js';
 
 export default function (database) {
@@ -17,17 +19,19 @@ export default function (database) {
     updateNoteBody: updateNoteBody(database),
     updateNoteTitle: updateNoteTitle(database),
     insertNote: insertNote(database),
+    deleteNote: deleteNote(database),
+    deleteAllNotes: deleteAllNotes(database),
   };
 
+  const graphql_handler = express_graphql.graphqlHTTP({
+    schema,
+    rootValue: root,
+    graphiql: true,
+  });
+
   const app = express();
-  app.use(
-    '/graphql',
-    express_graphql.graphqlHTTP({
-      schema,
-      rootValue: root,
-      graphiql: true,
-    })
-  );
+
+  app.use('/graphql', graphql_handler);
 
   return app;
 }
