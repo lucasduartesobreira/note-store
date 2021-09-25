@@ -2,14 +2,14 @@
 
 That's a repo to test GraphQL with Express.
 
-It can be somewhat easily adapted to accept a real database or even a simple file handler.
+It can be somewhat easily adapted to accept a database or even a simple file handler.
 
 Currently, it is a work in progress.
 
 ## What it has
 
-Right now it's possible to create separated notes each containing a body and a title.\
-Each note is associated with a user.
+Now it's possible to create separated notes containing a body and a title.\
+Each is associated with a user.
 
 ### Possible requests
 
@@ -42,6 +42,7 @@ Note {
 `````
 
 ## To do
-- [ ] Hashing IDs, so a string is really accepted as ID
+- [ ] Hashing IDs, so a string gets accepted as ID
 - [ ] Create integration tests
-- [ ] Change User model to accept any type of database or file storer
+- [ ] Change User model to accept any database or file storer
+- [ ] Create a system for User authentication
