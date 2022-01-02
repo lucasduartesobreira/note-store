@@ -1,4 +1,5 @@
-import { user } from './models/User.js';
+import user from './models/User.js';
+import notes from './models/Notes.js';
 
 describe('User', () => {
   describe('Notes', () => {
@@ -8,7 +9,7 @@ describe('User', () => {
         database.set(0, { id: 0, notes: new Map() });
 
         expect(
-          user.insertNote(database, 0, 'Body test', 'Title test')
+          notes.insertNote(database, 0, 'Body test', 'Title test')
         ).toStrictEqual({
           id: 0,
           title: 'Title test',
@@ -26,7 +27,9 @@ describe('User', () => {
       test('insert invalid user', () => {
         let database = new Map();
 
-        expect(user.insertNote(database, 0, 'Body test', 'Title test')).toBeNull();
+        expect(
+          notes.insertNote(database, 0, 'Body test', 'Title test')
+        ).toBeNull();
 
         expect(database).toStrictEqual(new Map());
       });
@@ -45,7 +48,7 @@ describe('User', () => {
       test('get a real note', () => {
         let database = setup();
 
-        expect(user.getNote(database, 0, 0)).toStrictEqual({
+        expect(notes.getNote(database, 0, 0)).toStrictEqual({
           id: 0,
           body: 'Body test',
           title: 'Title test',
@@ -54,12 +57,12 @@ describe('User', () => {
       test('try to get a unexistent note', () => {
         let database = setup();
 
-        expect(user.getNote(database, 0, 1)).toBeNull();
+        expect(notes.getNote(database, 0, 1)).toBeNull();
       });
       test('try to get a note from a unexistent user', () => {
         let database = setup();
 
-        expect(user.getNote(database, 1, 0)).toBeNull();
+        expect(notes.getNote(database, 1, 0)).toBeNull();
       });
       test('try to get all notes from a existent user', () => {
         let database = setup();
@@ -71,13 +74,13 @@ describe('User', () => {
           title: 'Title test',
         });
 
-        expect(user.getAllNotes(database, 0)).toStrictEqual(expected_notes);
+        expect(notes.getAllNotes(database, 0)).toStrictEqual(expected_notes);
       });
 
       test('try to get all notes from a unexistent user', () => {
         let database = setup();
 
-        expect(user.getAllNotes(database, 1)).toBeNull();
+        expect(notes.getAllNotes(database, 1)).toBeNull();
       });
     });
 
@@ -106,11 +109,11 @@ describe('User', () => {
           title: 'Changed title',
         };
 
-        expect(user.updateNoteTitle(database, 0, 0, 'Changed title')).toStrictEqual(
-          expected_note
-        );
+        expect(
+          notes.updateNoteTitle(database, 0, 0, 'Changed title')
+        ).toStrictEqual(expected_note);
 
-        expect(user.getNote(database, 0, 0)).toStrictEqual(expected_note);
+        expect(notes.getNote(database, 0, 0)).toStrictEqual(expected_note);
       });
 
       test('update a note body', () => {
@@ -120,17 +123,19 @@ describe('User', () => {
           ...base_note,
           body: 'Changed body',
         };
-        expect(user.updateNoteBody(database, 0, 0, 'Changed body')).toStrictEqual(
-          expected_note
-        );
+        expect(
+          notes.updateNoteBody(database, 0, 0, 'Changed body')
+        ).toStrictEqual(expected_note);
 
-        expect(user.getNote(database, 0, 0)).toStrictEqual(expected_note);
+        expect(notes.getNote(database, 0, 0)).toStrictEqual(expected_note);
       });
 
       test('try update a unexistent note', () => {
         let database = setup();
-        expect(user.updateNoteBody(database, 0, 1, 'Changed body')).toBeNull();
-        expect(user.updateNoteTitle(database, 0, 1, 'Changed title')).toBeNull();
+        expect(notes.updateNoteBody(database, 0, 1, 'Changed body')).toBeNull();
+        expect(
+          notes.updateNoteTitle(database, 0, 1, 'Changed title')
+        ).toBeNull();
 
         expect(database).toStrictEqual(setup());
       });
@@ -138,8 +143,10 @@ describe('User', () => {
       test('try update a note on a unexistent user', () => {
         let database = setup();
 
-        expect(user.updateNoteBody(database, 1, 0, 'Changed body')).toBeNull();
-        expect(user.updateNoteTitle(database, 1, 0, 'Changed title')).toBeNull();
+        expect(notes.updateNoteBody(database, 1, 0, 'Changed body')).toBeNull();
+        expect(
+          notes.updateNoteTitle(database, 1, 0, 'Changed title')
+        ).toBeNull();
 
         expect(database).toStrictEqual(setup());
       });
@@ -160,29 +167,31 @@ describe('User', () => {
       };
       test('delete a valid note', () => {
         let database = setup();
-        expect(user.deleteNote(database, 0, 0)).toStrictEqual('Sucessfully deleted');
-        expect(user.getNote(database, 0, 0)).toBeNull();
+        expect(notes.deleteNote(database, 0, 0)).toStrictEqual(
+          'Sucessfully deleted'
+        );
+        expect(notes.getNote(database, 0, 0)).toBeNull();
       });
 
       test('delete all notes', () => {
         let database = setup();
-        expect(user.deleteAllNotes(database, 0)).toBe('Deleted all messages');
-        expect(user.getNote(database, 0, 0)).toBeNull();
+        expect(notes.deleteAllNotes(database, 0)).toBe('Deleted all messages');
+        expect(notes.getNote(database, 0, 0)).toBeNull();
       });
 
       test('delete invalid note', () => {
         let database = setup();
-        expect(user.deleteNote(database, 0, 1)).toBeNull();
-        expect(user.getNote(database, 0, 1)).toBeNull();
+        expect(notes.deleteNote(database, 0, 1)).toBeNull();
+        expect(notes.getNote(database, 0, 1)).toBeNull();
       });
       test('delete invalid user', () => {
         let database = setup();
-        expect(user.deleteNote(database, 1, 0)).toBeNull();
+        expect(notes.deleteNote(database, 1, 0)).toBeNull();
       });
 
       test('delete all notes from a invalid user', () => {
         let database = setup();
-        expect(user.deleteAllNotes(database, 1, 0)).toBeNull();
+        expect(notes.deleteAllNotes(database, 1, 0)).toBeNull();
       });
     });
   });
