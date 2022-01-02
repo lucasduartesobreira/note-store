@@ -1,4 +1,4 @@
-import { notes } from '../models/User.js';
+import notes from '../models/Notes.js';
 
 export const insertNote = (user_bd) => (data) => {
   const { user_id, body, title } = data;

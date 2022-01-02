@@ -1,4 +1,5 @@
-import { user, notes } from './models/User.js';
+import user from './models/User.js';
+import notes from './models/Notes.js';
 
 describe('User', () => {
   describe('Notes', () => {
