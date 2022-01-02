@@ -1,0 +1,24 @@
+name: CI
+
+on: push
+  
+jobs:
+
+  tests: 
+    
+    runs-on: ubuntu-latest
+
+
+    steps:
+      
+      - uses: actions/checkout@v2
+
+    
+      - name: installing dependencies
+        run: npm install
+
+  
+      - name: Running tests
+        run: npm run test
+          echo Add other actions to build,
+          echo test, and deploy your project.
