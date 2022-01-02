@@ -1,4 +1,4 @@
-export const insertNote = (user_bd, user_id, body, title) => {
+const insertNote = (user_bd, user_id, body, title) => {
   if (user_bd.has(user_id)) {
     const user = user_bd.get(user_id);
     user.notes.set(user.notes.size, {
@@ -12,7 +12,7 @@ export const insertNote = (user_bd, user_id, body, title) => {
   return null;
 };
 
-export const updateNoteTitle = (user_bd, user_id, note_id, title) => {
+ const updateNoteTitle = (user_bd, user_id, note_id, title) => {
   if (user_bd.has(user_id)) {
     const user = user_bd.get(user_id);
     if (user.notes.has(note_id)) {
@@ -23,7 +23,7 @@ export const updateNoteTitle = (user_bd, user_id, note_id, title) => {
   return null;
 };
 
-export const updateNoteBody = (user_bd, user_id, note_id, body) => {
+ const updateNoteBody = (user_bd, user_id, note_id, body) => {
   if (user_bd.has(user_id)) {
     const user = user_bd.get(user_id);
     if (user.notes.has(note_id)) {
@@ -34,7 +34,7 @@ export const updateNoteBody = (user_bd, user_id, note_id, body) => {
   return null;
 };
 
-export const getNote = (user_bd, user_id, note_id) => {
+ const getNote = (user_bd, user_id, note_id) => {
   if (user_bd.has(user_id)) {
     const notes = user_bd.get(user_id).notes;
     return notes.has(note_id) ? notes.get(note_id) : null;
@@ -42,14 +42,14 @@ export const getNote = (user_bd, user_id, note_id) => {
   return null;
 };
 
-export const getUserNotes = (user_bd, user_id) => {
+ const getAllNotes = (user_bd, user_id) => {
   if (user_bd.has(user_id)) {
     return user_bd.get(user_id).notes;
   }
   return null;
 };
 
-export const deleteNote = (user_bd, user_id, note_id) => {
+ const deleteNote = (user_bd, user_id, note_id) => {
   if (user_bd.has(user_id)) {
     return user_bd.get(user_id).notes.delete(note_id)
       ? 'Sucessfully deleted'
@@ -58,7 +58,7 @@ export const deleteNote = (user_bd, user_id, note_id) => {
   return null;
 };
 
-export const deleteAllNotes = (user_bd, user_id) => {
+ const deleteAllNotes = (user_bd, user_id) => {
   if (user_bd.has(user_id)) {
     let notes = user_bd.get(user_id).notes;
     notes.clear();
@@ -67,7 +67,7 @@ export const deleteAllNotes = (user_bd, user_id) => {
   return null;
 };
 
-export const createUser = (user_bd) => {
+ const create = (user_bd) => {
   user_bd.set(user_bd.size, {
     id: user_bd.size,
     notes: new Map(),
@@ -76,9 +76,25 @@ export const createUser = (user_bd) => {
   return user_bd.get(user_bd.size - 1);
 };
 
-export const deleteUser = (user_bd, user_id) => {
+ const remove = (user_bd, user_id) => {
   if (user_bd.delete(user_id)) {
     return 'Deleted user';
   }
   return null;
 };
+
+const user = {
+  insertNote,
+  updateNoteBody,
+  updateNoteTitle,
+  getNote,
+  getAllNotes,
+  deleteNote,
+  deleteAllNotes,
+  remove,
+  create,
+}
+
+ export {
+  user
+}
